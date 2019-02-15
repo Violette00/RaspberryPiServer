@@ -2,7 +2,7 @@ import socket
 
 s = socket.socket()
 host = "192.168.1.123"
-port = 60000
+port = 63947
 
 s.connect((host, port))
 s.send("Hello Server!")
