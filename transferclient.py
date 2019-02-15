@@ -5,19 +5,15 @@ host = "192.168.1.123"
 port = 63947
 
 s.connect((host, port))
-s.send("Hello Server!")
 
-with open('received_file', 'wb') as f:
-    print("File Opened")
-    while True:
-        print("Receiving data...")
-        data = s.recv(1024)
-        print ("data=%s", (data))
-        if not data:
-            break
-        f.write(data)
-
+filename = "Moneyball.2011.720p.BrRip.x264.YIFY.mp4"
+f = open(filename, 'rb')
+l = f.read(1024)
+while (l):
+    s.send(l)
+    l = f.read(1024)
 f.close()
-print("Successfully got the file")
+
+print ("Done Sending")
 s.close()
 print("Connection Closed")
