@@ -15,14 +15,26 @@ while True:
     print("Got Connection from ", addr)
     data = conn.recv(1024)
     print("Server Received ", repr(data))
-    filename = "mytxt.txt"
-    f = open(filename, 'rb')
-    l = f.read(1024)
-    while (l):
-        conn.send(l)
-        print("Sent ", repr(l))
-        l = f.read(1024)
+    print("data = %s", (data))
+    with open("file", 'wb') as f:
+        while True:
+            data = s.recv(1024)
+            print("data>> = %s", (data))
+            if not data:
+                break
+            f.write(data)
+
     f.close()
+
+    #vvv file sending code
+    #filename = "mytxt.txt"
+    #f = open(filename, 'rb')
+    #l = f.read(1024)
+    #while (l):
+     #   conn.send(l)
+     #   print("Sent ", repr(l))
+     #   l = f.read(1024)
+    #f.close()
 
     print("Done Sending!")
     conn.send("Thank you for connecting!")
