@@ -13,13 +13,11 @@ print("Server Listening...")
 while True:
     conn, addr = s.accept()
     print("Got Connection from ", addr)
-    data = conn.recv(1024)
-    print("Server Received ", repr(data))
-    print("data = %s", (data))
-    with open("file", 'wb') as f:
+#    data = conn.recv(1024)
+#   print("Server Received ", repr(data))
+    with open("Moneyball.mp4", 'wb') as f:
         while True:
-            data = s.recv(1024)
-            print("data>> = %s", (data))
+            data = conn.recv(1024)
             if not data:
                 break
             f.write(data)
@@ -37,5 +35,5 @@ while True:
     #f.close()
 
     print("Done Sending!")
-    conn.send("Thank you for connecting!")
+    conn.send("File Received")
     conn.close()
