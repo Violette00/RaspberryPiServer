@@ -4,12 +4,15 @@ import websockets
 async def hello(websocket, path):
     name = await websocket.recv()
     print("Got Connection for ", name)
-    with open("Recv " + name, 'wb') as f:
+    with open(name, 'wb') as f:
         while True:
             data = await websocket.recv()
             if data == "Complete":
                 break
-            f.write(data)
+            if isinstance(data, str):
+                f.write(data.encode())
+            else:
+                f.write(data)
     print("Done")
 
 start_server = websockets.serve(hello, 'localhost', 8765)
