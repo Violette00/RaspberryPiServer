@@ -11,7 +11,7 @@ function sendFile(){
         para.textContent = 'No files currently selected for transfer';
         preview.appendChild(para);
     } else {
-        var exampleSocket = new WebSocket("ws://localhost:8765");
+        var exampleSocket = new WebSocket("ws://192.168.1.148:8765");
         var file = curFiles[0];
         exampleSocket.onopen = function(event){
             var fileSize = file.size;
