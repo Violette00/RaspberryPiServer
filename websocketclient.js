@@ -2,6 +2,7 @@ var input = document.querySelector('input');
 var preview = document.querySelector('.preview');
 
 input.addEventListener('change', sendFile);
+host = "ws://192.168.1.150:8765"
 
 function sendFile(){
     console.log("The method is called");
@@ -11,7 +12,7 @@ function sendFile(){
         para.textContent = 'No files currently selected for transfer';
         preview.appendChild(para);
     } else {
-        var exampleSocket = new WebSocket("ws://localhost:8765");
+        var exampleSocket = new WebSocket(host);
         var file = curFiles[0];
         exampleSocket.onopen = function(event){
             var fileSize = file.size;
@@ -19,13 +20,15 @@ function sendFile(){
             var offset = 0;
             var self = this;
             var chunkReaderBlock = null;
-
+            var totalChunks = (Math.ceil(fileSize/chunkSize));
+            console.log("Total Chunks = " + totalChunks);
             exampleSocket.send(file.name);
-
+            exampleSocket.send(totalChunks);
+            console.log(fileSize);
+            exampleSocket.send(fileSize);
             var readEventHandler = function(evt){
                 if (evt.target.error == null){
                     offset += chunkSize;
-                    console.log(offset);
                     if (offset > fileSize){
                         offset = fileSize;
                     }
@@ -61,9 +64,3 @@ function sendFile(){
     }
 }
 
-
-//exampleSocket.onopen = function(event) {
-//    exampleSocket.send("cat.txt");
-//    exampleSocket.send("Meowmeow");
-//    exampleSocket.send("Complete");
-//}
