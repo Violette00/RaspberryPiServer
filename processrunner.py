@@ -1,3 +1,3 @@
 import subprocess
 
-print(subprocess.check_output(["ls", "-l"]))
+print(subprocess.check_output("git pull", cwd="~/Documents/Programming/RaspberryPi/RaspberryPiServer"))
